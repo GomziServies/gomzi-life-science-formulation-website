@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="GMP — Good Manufacturing Practice">
+  <circle cx="100" cy="100" r="96" fill="#99c229"/>
+  <circle cx="100" cy="100" r="87" fill="#ffffff"/>
+  <circle cx="100" cy="100" r="87" fill="none" stroke="#99c229" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="100" y="97" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="bold" fill="#1a1a2e">GMP</text>
+  <text x="100" y="121" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing="1.5" fill="#5b6378">GOOD MANUFACTURING</text>
+  <text x="100" y="137" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing="3" fill="#5b6378">PRACTICE</text>
+  <circle cx="100" cy="168" r="16" fill="#99c229"/>
+  <path d="M92 168 L97 174 L108 161" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
