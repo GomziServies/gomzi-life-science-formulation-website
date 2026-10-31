@@ -256,6 +256,10 @@ img {
 }
 
 @media (max-width: 860px) {
+  :root {
+    --header-height: 72px;
+  }
+
   .nav {
     padding: 0 1.25rem;
     height: 72px;
@@ -484,7 +488,7 @@ a:hover {
   width: 100%;
   height: auto;
   aspect-ratio: 1672 / 750;
-  object-fit: contain;
+  object-fit: cover;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: high-quality;
 }
@@ -741,7 +745,7 @@ a:hover {
   overflow: hidden;
   box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.08);
   border-bottom: 1px solid rgba(153, 194, 41, 0.2);
-  background: #f5ede2;
+  background: #111111;
 }
 
 .about-hero-img {
@@ -749,7 +753,7 @@ a:hover {
   width: 100%;
   height: auto;
   aspect-ratio: 1672 / 750;
-  object-fit: contain;
+  object-fit: cover;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: high-quality;
 }
@@ -808,29 +812,7 @@ a:hover {
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
-@media (max-width: 960px) {
-  .about-hero-img {
-    height: clamp(300px, 44vw, 420px);
-  }
-}
 
-@media (max-width: 680px) {
-  .about-hero-img {
-    height: 280px;
-  }
-
-  .about-hero-overlay {
-    position: absolute;
-    inset: 0;
-    padding: 1.5rem 1.25rem;
-    background: rgba(15, 23, 42, 0.5);
-  }
-
-  .about-hero-overlay h1 {
-    font-size: 1.75rem;
-    margin-bottom: 0.65rem;
-  }
-}
 
 /* Slightly decrease top padding between About Hero and Story section */
 .about-hero-banner + .section,
@@ -853,7 +835,7 @@ a:hover {
   overflow: hidden;
   box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.08);
   border-bottom: 1px solid rgba(153, 194, 41, 0.2);
-  background: #f5ede2;
+  background: #111111;
 }
 
 .rd-hero-img {
@@ -861,7 +843,7 @@ a:hover {
   width: 100%;
   height: auto;
   aspect-ratio: 1672 / 750;
-  object-fit: contain;
+  object-fit: cover;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: high-quality;
 }
