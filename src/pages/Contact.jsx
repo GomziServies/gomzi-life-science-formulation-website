@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { scrollToElement } from '../components/ScrollToTop';
+import CustomSelect from '../components/CustomSelect';
 
 const EMAIL = 'info@gomzilifesciences.in';
 
@@ -175,20 +176,15 @@ export default function Contact() {
                   <label htmlFor="requirement">
                     What are you interested in? *
                   </label>
-                  <select
+                  <CustomSelect
                     id="requirement"
                     name="requirement"
                     required
                     value={form.requirement}
+                    options={INTEREST_OPTIONS}
+                    placeholder="Select an option"
                     onChange={onChange}
-                  >
-                    <option value="">Select an option</option>
-                    {INTEREST_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
 
                 <div className="form-group">
@@ -237,7 +233,7 @@ export default function Contact() {
                   background: '#f5f6fb',
                   padding: '1.5rem',
                   borderRadius: '8px',
-                  borderLeft: '4px solid #111111',
+                  borderLeft: '4px solid #99c229',
                   marginBottom: '1.5rem',
                 }}
               >
@@ -273,7 +269,7 @@ export default function Contact() {
                   background: '#f5f6fb',
                   padding: '1.5rem',
                   borderRadius: '8px',
-                  borderLeft: '4px solid #111111',
+                  borderLeft: '4px solid #99c229',
                   marginBottom: '1.5rem',
                 }}
               >
@@ -293,7 +289,7 @@ export default function Contact() {
                   background: '#f5f6fb',
                   padding: '1.5rem',
                   borderRadius: '8px',
-                  borderLeft: '4px solid #111111',
+                  borderLeft: '4px solid #99c229',
                   marginBottom: '1.5rem',
                 }}
               >
@@ -308,7 +304,7 @@ export default function Contact() {
                   background: '#f5f6fb',
                   padding: '1.5rem',
                   borderRadius: '8px',
-                  borderTop: '4px solid #111111',
+                  borderTop: '4px solid #99c229',
                   marginTop: '2rem',
                 }}
               >
