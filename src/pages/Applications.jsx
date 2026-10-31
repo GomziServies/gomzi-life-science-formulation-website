@@ -99,7 +99,29 @@ export default function Applications() {
       <section className="hero-banner-section">
         <div className="hero-banner-wrapper">
           <picture>
-            <source srcSet="/applications-hero-banner.webp" type="image/webp" />
+            {/* Mobile View: High-resolution portrait banner (≤ 768px) */}
+            <source
+              media="(max-width: 768px)"
+              srcSet="/applications-hero-mobile.webp"
+              type="image/webp"
+              width="756"
+              height="1024"
+            />
+            <source
+              media="(max-width: 768px)"
+              srcSet="/applications-hero-mobile.jpg"
+              type="image/jpeg"
+              width="756"
+              height="1024"
+            />
+            {/* Desktop View: Landscape banner (> 768px) */}
+            <source
+              media="(min-width: 769px)"
+              srcSet="/applications-hero-banner.webp"
+              type="image/webp"
+              width="1672"
+              height="750"
+            />
             <img
               src="/applications-hero-banner.png"
               alt="Applications & Categories - 11 Product Categories | Gomzi Lifesciences"

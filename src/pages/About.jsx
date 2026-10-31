@@ -65,7 +65,29 @@ export default function About() {
       <section className="about-hero-banner">
         <div className="about-hero-inner">
           <picture>
-            <source srcSet="/about-hero-bg.webp" type="image/webp" />
+            {/* Mobile View: High-resolution portrait banner (≤ 768px) */}
+            <source
+              media="(max-width: 768px)"
+              srcSet="/about-hero-mobile.webp"
+              type="image/webp"
+              width="756"
+              height="1024"
+            />
+            <source
+              media="(max-width: 768px)"
+              srcSet="/about-hero-mobile.jpg"
+              type="image/jpeg"
+              width="756"
+              height="1024"
+            />
+            {/* Desktop View: Landscape banner (> 768px) */}
+            <source
+              media="(min-width: 769px)"
+              srcSet="/about-hero-bg.webp"
+              type="image/webp"
+              width="1672"
+              height="750"
+            />
             <img
               src="/about-hero-bg.png"
               alt="About Gomzi Lifesciences - Pharmaceutical & Nutraceutical Manufacturing Facilities"

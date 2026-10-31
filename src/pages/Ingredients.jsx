@@ -160,7 +160,29 @@ export default function Ingredients() {
       <section className="hero-banner-section">
         <div className="hero-banner-wrapper">
           <picture>
-            <source srcSet="/ingredients-hero-master.webp" type="image/webp" />
+            {/* Mobile View: High-resolution portrait banner (≤ 768px) */}
+            <source
+              media="(max-width: 768px)"
+              srcSet="/ingredients-hero-mobile.webp"
+              type="image/webp"
+              width="756"
+              height="1024"
+            />
+            <source
+              media="(max-width: 768px)"
+              srcSet="/ingredients-hero-mobile.jpg"
+              type="image/jpeg"
+              width="756"
+              height="1024"
+            />
+            {/* Desktop View: Landscape banner (> 768px) */}
+            <source
+              media="(min-width: 769px)"
+              srcSet="/ingredients-hero-master.webp"
+              type="image/webp"
+              width="1672"
+              height="750"
+            />
             <img
               src="/ingredients-hero-master.png"
               alt="Nutraceutical Ingredients - 50+ Pharmaceutical-Grade Raw Materials | Gomzi Lifesciences"

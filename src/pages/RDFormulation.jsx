@@ -155,7 +155,29 @@ export default function RDFormulation() {
       <section className="rd-hero-banner">
         <div className="rd-hero-inner">
           <picture>
-            <source srcSet="/rd-hero-banner.webp" type="image/webp" />
+            {/* Mobile View: High-resolution portrait banner (≤ 768px) */}
+            <source
+              media="(max-width: 768px)"
+              srcSet="/rd-hero-mobile.webp"
+              type="image/webp"
+              width="756"
+              height="1024"
+            />
+            <source
+              media="(max-width: 768px)"
+              srcSet="/rd-hero-mobile.jpg"
+              type="image/jpeg"
+              width="756"
+              height="1024"
+            />
+            {/* Desktop View: Landscape banner (> 768px) */}
+            <source
+              media="(min-width: 769px)"
+              srcSet="/rd-hero-banner.webp"
+              type="image/webp"
+              width="1672"
+              height="750"
+            />
             <img
               src="/rd-hero-banner.png"
               alt="Natural Wellness Supplement Collection - Formulation & Development"
