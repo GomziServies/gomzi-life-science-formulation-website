@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Reveal from '../components/Reveal';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 
@@ -178,7 +177,7 @@ export default function About() {
         <div className="container">
           <h2 className="section-center-title">Mission & Values</h2>
           <div className="value-grid mission-values-grid">
-            <Reveal className="value-card">
+            <div className="value-card">
               <div
                 style={{
                   width: '48px',
@@ -212,8 +211,8 @@ export default function About() {
                 materials, expert R&D, and end-to-end product development
                 support.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <div
                 style={{
                   width: '48px',
@@ -246,8 +245,8 @@ export default function About() {
                 Pharmaceutical, nutraceutical, and food-grade certifications
                 across our portfolio.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <div
                 style={{
                   width: '48px',
@@ -281,8 +280,8 @@ export default function About() {
                 We work exclusively with brands and manufacturers. Our approach
                 is flexible, professional, and built on long-term partnerships.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <div
                 style={{
                   width: '48px',
@@ -318,7 +317,7 @@ export default function About() {
                 formulation expertise, and evidence-based product development
                 practices.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -328,48 +327,48 @@ export default function About() {
         <div className="container">
           <h2 className="section-center-title">What We Help With</h2>
           <div className="feature-grid">
-            <Reveal className="feature-item">
+            <div className="feature-item">
               <h3>Ingredient Sourcing</h3>
               <p>
                 Access 50+ nutraceutical-grade raw materials. From common amino
                 acids to clinical specialty ingredients.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Product Formulation</h3>
               <p>
                 R&D support to develop stable, effective formulations. Sensory
                 optimization and ingredient compatibility work.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Format Development</h3>
               <p>
                 Experience across powders, capsules, tablets, liquids,
                 gummies, and functional beverages.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Manufacturing Support</h3>
               <p>
                 Connections with established manufacturing partners. Scale from
                 development batches to commercial production.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Regulatory Guidance</h3>
               <p>
                 Support with ingredient selection for FSSAI compliance and
                 health claim positioning.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Flexible Quantities</h3>
               <p>
                 Available in development quantities (1 kg) through commercial
                 scale (25 kg+).
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -394,7 +393,7 @@ export default function About() {
           </p>
 
           <div className="value-grid">
-            <Reveal className="value-card">
+            <div className="value-card">
               <h3>Gomzi Chemicals</h3>
               <p style={{ fontWeight: 600, color: '#111111', marginBottom: '1rem' }}>
                 Raw Material Distribution
@@ -404,8 +403,8 @@ export default function About() {
                 materials. Serving manufacturers, distributors, and businesses
                 across India with quality ingredients and reliable sourcing.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <h3>GomziAmino Pharma</h3>
               <p style={{ fontWeight: 600, color: '#111111', marginBottom: '1rem' }}>
                 Amino Acid Manufacturing
@@ -415,8 +414,8 @@ export default function About() {
                 acids. Specialized in injectable-grade amino acids and
                 nutraceutical-grade formulations.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <h3>Gomzi Formulations</h3>
               <p style={{ fontWeight: 600, color: '#111111', marginBottom: '1rem' }}>
                 R&D & Formulation
@@ -426,7 +425,7 @@ export default function About() {
                 commercial manufacturing. Partner with brands to create
                 market-ready products.
               </p>
-            </Reveal>
+            </div>
           </div>
 
           <div

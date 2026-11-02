@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Reveal from '../components/Reveal';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 
@@ -127,30 +126,30 @@ export default function Home() {
         <div className="container">
           <h2 className="section-center-title">Source. Develop. Scale.</h2>
           <div className="value-grid">
-            <Reveal className="value-card">
+            <div className="value-card">
               <div className="value-number">01</div>
               <h3>Source</h3>
               <p>
                 Nutraceutical-grade raw materials including amino acids,
                 vitamins, minerals, and specialty ingredients.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <div className="value-number">02</div>
               <h3>Develop</h3>
               <p>
                 R&D and formulation support across powders, liquids, capsules,
                 gummies, and other formats.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <div className="value-number">03</div>
               <h3>Scale</h3>
               <p>
                 Manufacturing connections and product development support to
                 take your formula to market.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -158,15 +157,15 @@ export default function Home() {
       {/* ==================== EXPLORE INGREDIENTS ==================== */}
       <section className="section">
         <div className="container">
-          <Reveal className="section-header">
+          <div className="section-header">
             <h2>Our Ingredient Portfolio</h2>
             <p className="section-subtitle">
               50+ nutraceutical-grade raw materials across amino acids,
               vitamins, minerals, and specialty ingredients.
             </p>
-          </Reveal>
+          </div>
           <div className="value-grid">
-            <Reveal className="value-card">
+            <div className="value-card">
               <h3>Amino Acids</h3>
               <p>
                 23 essential and non-essential amino acids for sports
@@ -175,8 +174,8 @@ export default function Home() {
               <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
                 L-Glutamine, L-Arginine, L-Citrulline, Taurine, Beta Alanine + 18 more
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <h3>Vitamins & Minerals</h3>
               <p>
                 Essential vitamins and mineral salts for health, immunity, and
@@ -185,8 +184,8 @@ export default function Home() {
               <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
                 Vitamin D3, Magnesium, Zinc, Iron, Selenium + more
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <h3>Sports & Performance</h3>
               <p>
                 Specialized ingredients for athletic performance and sports
@@ -195,7 +194,7 @@ export default function Home() {
               <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
                 Creatine Monohydrate, HMB Calcium, Citrulline Malate
               </p>
-            </Reveal>
+            </div>
           </div>
           <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
             <Link to="/ingredients" className="btn btn-red btn-lg">
@@ -208,13 +207,13 @@ export default function Home() {
       {/* ==================== R&D & FORMULATION ==================== */}
       <section className="section alt-bg">
         <div className="container">
-          <Reveal className="section-header">
+          <div className="section-header">
             <h2>R&D & Formulation</h2>
             <p className="section-subtitle">
               From product concept to commercial formulation. We develop across
               multiple formats to bring your ideas to market.
             </p>
-          </Reveal>
+          </div>
           <div className="rd-formats-grid">
             {FORMATS.map((item) => (
               <div className="rd-format-card" key={item.name}>
@@ -246,7 +245,7 @@ export default function Home() {
         <div className="container">
           <h2 className="section-center-title">Built for Brands at Every Stage</h2>
           <div className="value-grid">
-            <Reveal className="value-card">
+            <div className="value-card">
               <img
                 src="/brands/startups-founders.webp"
                 alt="Startups and founders formulation consultation"
@@ -265,8 +264,8 @@ export default function Home() {
                 Have an idea? Need help turning it into a product? We work with
                 flexible quantities and lean development processes.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <img
                 src="/brands/d2c-brands.webp"
                 alt="D2C supplement brand ecommerce and product scaling"
@@ -285,8 +284,8 @@ export default function Home() {
                 Scaling production or launching new products? We provide
                 ingredient sourcing and formulation development support.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <img
                 src="/brands/manufacturers.webp"
                 alt="Nutraceutical bulk manufacturing and powder filling"
@@ -305,7 +304,7 @@ export default function Home() {
                 Need reliable nutraceutical raw material sourcing? We supply in
                 flexible quantities for all production scales.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -317,7 +316,7 @@ export default function Home() {
             From Raw Material to Finished Product
           </h2>
           <div className="process-steps">
-            <Reveal className="process-step">
+            <div className="process-step">
               <div
                 style={{
                   width: '100%',
@@ -345,8 +344,8 @@ export default function Home() {
                 Identify and source quality raw materials from our portfolio of
                 50+ ingredients.
               </p>
-            </Reveal>
-            <Reveal className="process-step">
+            </div>
+            <div className="process-step">
               <div
                 style={{
                   width: '100%',
@@ -374,8 +373,8 @@ export default function Home() {
                 Develop your formulation based on your product concept and
                 target market.
               </p>
-            </Reveal>
-            <Reveal className="process-step">
+            </div>
+            <div className="process-step">
               <div
                 style={{
                   width: '100%',
@@ -404,8 +403,8 @@ export default function Home() {
                 Create samples and optimize based on sensory feedback and
                 functional requirements.
               </p>
-            </Reveal>
-            <Reveal className="process-step">
+            </div>
+            <div className="process-step">
               <div
                 style={{
                   width: '100%',
@@ -434,7 +433,7 @@ export default function Home() {
                 Connect with suitable manufacturing partners and scale to
                 commercial production.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -444,38 +443,38 @@ export default function Home() {
         <div className="container">
           <h2 className="section-center-title">Why Choose Gomzi Lifesciences?</h2>
           <div className="feature-grid">
-            <Reveal className="feature-item">
+            <div className="feature-item">
               <h3>Ingredient Access</h3>
               <p>
                 A broad portfolio of nutraceutical-grade raw materials,
                 including clinical and specialty ingredients.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Flexible Procurement</h3>
               <p>
                 Available in development quantities (1 kg) through to
                 commercial scale (25 kg+).
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>Technical Understanding</h3>
               <p>Ingredient sourcing backed by deep R&D and formulation expertise.</p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>One Partner, Multiple Stages</h3>
               <p>
                 Handle ingredient sourcing, formulation, R&D, and manufacturing
                 support—all from one team.
               </p>
-            </Reveal>
-            <Reveal className="feature-item">
+            </div>
+            <div className="feature-item">
               <h3>B2B Focus</h3>
               <p>
                 Built to work with founders, brands, and manufacturers—not
                 direct consumers.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -508,7 +507,7 @@ export default function Home() {
         <div className="container">
           <h2 className="section-center-title">Part of the Gomzi Group</h2>
           <div className="value-grid">
-            <Reveal className="value-card">
+            <div className="value-card">
               <h3>Gomzi Chemicals</h3>
               <p style={subtitleStyle}>
                 Pharmaceutical & Nutraceutical Raw Material Supply
@@ -518,8 +517,8 @@ export default function Home() {
                 materials, serving manufacturers and businesses across India
                 with quality ingredients and dependable sourcing.
               </p>
-            </Reveal>
-            <Reveal className="value-card">
+            </div>
+            <div className="value-card">
               <h3>Gomzi Amino</h3>
               <p style={subtitleStyle}>
                 Amino Acids & Nutritional Ingredients
@@ -529,7 +528,7 @@ export default function Home() {
                 ingredients for nutraceutical, sports nutrition, food and
                 wellness applications.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>

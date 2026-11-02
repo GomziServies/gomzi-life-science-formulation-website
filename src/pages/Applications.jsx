@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Reveal from '../components/Reveal';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const APPLICATIONS = [
@@ -146,7 +145,7 @@ export default function Applications() {
         <div className="container">
           <div className="application-grid">
             {APPLICATIONS.map((application) => (
-              <Reveal className="application-card" key={application.title}>
+              <div className="application-card" key={application.title}>
                 <h3>{application.title}</h3>
                 <p>{application.text}</p>
                 <div className="application-tags">
@@ -156,7 +155,7 @@ export default function Applications() {
                     </span>
                   ))}
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>
@@ -184,10 +183,10 @@ export default function Applications() {
 
           <div className="feature-grid">
             {WHY_SERIES.map((column) => (
-              <Reveal className="feature-item" key={column.title}>
+              <div className="feature-item" key={column.title}>
                 <h3>{column.title}</h3>
                 <p>{column.text}</p>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>

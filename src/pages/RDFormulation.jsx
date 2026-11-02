@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Reveal from '../components/Reveal';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const FORMATS = [
@@ -237,10 +236,10 @@ export default function RDFormulation() {
 
           <div className="feature-grid">
             {CAPABILITIES.map((capability) => (
-              <Reveal className="feature-item" key={capability.title}>
+              <div className="feature-item" key={capability.title}>
                 <h3>{capability.title}</h3>
                 <p>{capability.text}</p>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>
@@ -267,11 +266,11 @@ export default function RDFormulation() {
 
           <div className="process-steps rd-process-steps">
             {PROCESS_STEPS.map((step) => (
-              <Reveal className="process-step" key={step.number}>
+              <div className="process-step" key={step.number}>
                 <div className="step-number">{step.number}</div>
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>
@@ -314,10 +313,10 @@ export default function RDFormulation() {
           <h2 className="section-center-title">What Comes with R&D Support</h2>
           <div className="value-grid">
             {RND_DELIVERABLES.map((deliverable) => (
-              <Reveal className="value-card" key={deliverable.title}>
+              <div className="value-card" key={deliverable.title}>
                 <h3>{deliverable.title}</h3>
                 <p>{deliverable.text}</p>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>

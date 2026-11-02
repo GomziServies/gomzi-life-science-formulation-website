@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Reveal from '../components/Reveal';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const FILTER_TABS = [
@@ -133,13 +132,9 @@ export default function Ingredients() {
 
   const [category, setCategory] = useState('all');
   const [search, setSearch] = useState('');
-  // Bumped on tab click so visible items replay the "scaleIn" animation
-  // exactly like the original filter script did.
-  const [animationTick, setAnimationTick] = useState(0);
 
   const onCategoryChange = (next) => {
     setCategory(next);
-    setAnimationTick((tick) => tick + 1);
   };
 
   const visibleSections = SECTIONS.map((section) => ({
@@ -206,14 +201,14 @@ export default function Ingredients() {
       {/* ==================== CLINICAL & SPECIALTY INGREDIENTS ==================== */}
       <section className="clinical-showcase" id="clinical">
         <div className="container">
-          <Reveal className="clinical-header">
+          <div className="clinical-header">
             <h2>Clinical & Specialty Ingredients</h2>
             <p className="clinical-tagline">
               Science-led, clinically-backed ingredients for differentiated
               product development. Build evidence-backed products with premium
               actives.
             </p>
-          </Reveal>
+          </div>
           <div className="clinical-grid">
             {CLINICAL_CARDS.map((card) => (
               <div className="clinical-card" key={card.title}>
@@ -300,7 +295,6 @@ export default function Ingredients() {
                     className="ingredient-item"
                     data-category={section.category}
                     key={`${section.category}-${item.name}`}
-                    style={animationTick ? { animation: 'scaleIn 0.3s ease-out' } : undefined}
                   >
                     <h4>{item.name}</h4>
                     <p>{item.type}</p>
