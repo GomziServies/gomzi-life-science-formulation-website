@@ -216,7 +216,7 @@ export default function Home() {
           </div>
           <div className="rd-formats-grid">
             {FORMATS.map((item) => (
-              <div className="rd-format-card" key={item.name}>
+              <Link to="/rd-formulation" className="rd-format-card" key={item.name}>
                 <div className="rd-format-card-img-wrap">
                   <img
                     src={item.image}
@@ -228,8 +228,9 @@ export default function Home() {
                 </div>
                 <div className="rd-format-card-body">
                   <h3 className="rd-format-card-title">{item.name}</h3>
+                  <span className="rd-format-card-arrow" aria-hidden="true">→</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
