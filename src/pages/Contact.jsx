@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { scrollToElement } from '../components/ScrollToTop';
 import CustomSelect from '../components/CustomSelect';
-import { INTEREST_OPTIONS, submitContactInquiry } from '../services/contactInquiry';
+import {
+  INTEREST_OPTIONS, normalizeEmail, sendContactEmailOtp,
+  submitContactInquiry, verifyContactEmailOtp,
+} from '../services/contactInquiry';
 
 const EMAIL = 'info@gomzilifesciences.in';
 
@@ -56,25 +60,126 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [challenge, setChallenge] = useState(null);
+  const [verification, setVerification] = useState(null);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [otpAction, setOtpAction] = useState('');
+  const [resendAt, setResendAt] = useState(0);
+  const [now, setNow] = useState(Date.now());
+  const busy = submitting || Boolean(otpAction);
+  const emailVerified = verification?.email === normalizeEmail(form.email) &&
+    Date.parse(verification?.expires_at) > now;
+  const resendSeconds = Math.max(0, Math.ceil((resendAt - now) / 1000));
+
+  useEffect(() => {
+    if (!challenge && !verification && !resendAt) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [challenge, verification, resendAt]);
+
+  const resetVerification = () => {
+    setChallenge(null);
+    setVerification(null);
+    setShowOtpModal(false);
+    setOtp('');
+    setResendAt(0);
+  };
+
+  useEffect(() => {
+    if (!showOtpModal || busy) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setShowOtpModal(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showOtpModal, busy]);
+
+  useEffect(() => {
+    if (!showOtpModal) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showOtpModal]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'email' && normalizeEmail(value) !== normalizeEmail(form.email)) resetVerification();
     setForm((prev) => ({ ...prev, [name]: value }));
     setSent(false);
     setError('');
   };
 
+  const sendOtp = async () => {
+    if (busy || resendSeconds > 0) return;
+    setOtpAction('send');
+    setError('');
+    setVerification(null);
+    setOtp('');
+    try {
+      const result = await sendContactEmailOtp(form.email);
+      setChallenge(result);
+      setShowOtpModal(true);
+      setNow(Date.now());
+      setResendAt(Date.now() + (result.resend_after || 60) * 1000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setOtpAction('');
+    }
+  };
+
+  const verifyOtp = async () => {
+    if (busy) return;
+    setOtpAction('verify');
+    setError('');
+    let emailVerifiedThisAttempt = false;
+    try {
+      const result = await verifyContactEmailOtp(challenge, otp);
+      emailVerifiedThisAttempt = true;
+      setVerification(result);
+      setOtp('');
+      setNow(Date.now());
+      setOtpAction('submit');
+      setSubmitting(true);
+      await submitContactInquiry(form, window.location.href, result);
+      setSent(true);
+      setForm(EMPTY_FORM);
+      resetVerification();
+    } catch (err) {
+      if (emailVerifiedThisAttempt) {
+        if (err.code === 'EMAIL_VERIFICATION_REQUIRED') resetVerification();
+        else setShowOtpModal(false);
+        setError(err.message || 'Your enquiry could not be sent. Please try again.');
+      } else {
+        setError(err.message);
+      }
+    } finally {
+      setSubmitting(false);
+      setOtpAction('');
+    }
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (submitting || sent) return;
+    if (busy || sent) return;
+    if (!emailVerified) {
+      if (challenge) setShowOtpModal(true);
+      else await sendOtp();
+      return;
+    }
     setSubmitting(true);
     setSent(false);
     setError('');
     try {
-      await submitContactInquiry(form, window.location.href);
+      await submitContactInquiry(form, window.location.href, verification);
       setSent(true);
       setForm(EMPTY_FORM);
+      resetVerification();
     } catch (err) {
+      if (err.code === 'EMAIL_VERIFICATION_REQUIRED') resetVerification();
       setError(err.message || 'Your enquiry could not be sent. Please try again.');
     } finally {
       setSubmitting(false);
@@ -108,8 +213,8 @@ export default function Contact() {
               <h2 style={{ color: '#99c229', marginBottom: '1.5rem' }}>
                 Send an Enquiry
               </h2>
-              <form className="contact-form" onSubmit={onSubmit} aria-busy={submitting}>
-                <fieldset disabled={submitting} style={{ border: 0, padding: 0, margin: 0, minWidth: 0 }}>
+              <form className="contact-form" onSubmit={onSubmit} aria-busy={busy}>
+                <fieldset disabled={busy} style={{ border: 0, padding: 0, margin: 0, minWidth: 0 }}>
                   <div className="form-group">
                     <label htmlFor="name">Full Name *</label>
                     <input
@@ -143,7 +248,22 @@ export default function Contact() {
                       required
                       value={form.email}
                       onChange={onChange}
+                      autoComplete="email"
+                      aria-describedby="email-verification-status"
                     />
+                    <div style={{ marginTop: '0.75rem' }}>
+                      {emailVerified ? (
+                        <p id="email-verification-status" role="status" style={{ color: '#507016', margin: 0 }}>
+                          ✓ Email verified
+                        </p>
+                      ) : (
+                        <>
+                          <p id="email-verification-status" style={{ fontSize: '0.85rem', color: '#5b6378' }}>
+                            {/* Click Send Enquiry to receive a six-digit verification code before your enquiry is submitted. */}
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
 
                   <div className="form-group">
@@ -188,7 +308,7 @@ export default function Contact() {
                 </fieldset>
                 <button
                   type="submit"
-                  disabled={submitting || sent}
+                  disabled={busy || sent}
                   className="btn btn-red btn-lg"
                   style={{
                     width: '100%',
@@ -196,9 +316,10 @@ export default function Contact() {
                     ...(sent ? { backgroundColor: '#99c229' } : {}),
                   }}
                 >
-                  {submitting ? 'Sending Enquiry…' : sent ? '✓ Enquiry Sent!' : 'Send Enquiry'}
+                  {submitting ? 'Sending Enquiry…' : otpAction === 'send' ? 'Sending code…'
+                    : sent ? '✓ Enquiry Sent!' : challenge && !emailVerified ? 'Enter verification code' : 'Send Enquiry'}
                 </button>
-                {error && <p role="alert" style={{ color: '#b42318', marginTop: '1rem' }}>{error}</p>}
+                {error && !showOtpModal && <p role="alert" style={{ color: '#b42318', marginTop: '1rem' }}>{error}</p>}
                 {sent && (
                   <p role="status" style={{ color: '#507016', marginTop: '1rem' }}>
                     Thank you for your enquiry! We will get back to you within one business day.
@@ -367,6 +488,85 @@ export default function Contact() {
           </a>
         </div>
       </section>
+
+      {showOtpModal && challenge && !emailVerified && createPortal(
+        <div
+          className="otp-modal-backdrop"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget && !busy) setShowOtpModal(false);
+          }}
+        >
+          <section
+            className="otp-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="email-otp-title"
+            aria-describedby="email-otp-help"
+          >
+            <button
+              type="button"
+              className="otp-modal-close"
+              aria-label="Close verification popup"
+              onClick={() => setShowOtpModal(false)}
+              disabled={busy}
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <div className="otp-modal-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3.75 6.75h16.5v10.5H3.75z" />
+                <path d="m4.5 7.5 7.5 6 7.5-6" />
+              </svg>
+            </div>
+            <p className="otp-modal-eyebrow">EMAIL VERIFICATION</p>
+            <h2 id="email-otp-title" className="otp-modal-title">Verify your email</h2>
+            <p id="email-otp-help" className="otp-modal-description">
+              We sent a six-digit code to
+              <strong className="otp-modal-email">{challenge.email}</strong>
+              {Date.parse(challenge.expires_at) > now
+                ? 'Enter it below to confirm your email. The code expires in 15 minutes.'
+                : 'Your code has expired. Request a new code to continue.'}
+            </p>
+            <label className="otp-modal-label" htmlFor="email-otp">Verification code</label>
+            <input
+              className="otp-modal-input"
+              type="text"
+              id="email-otp"
+              value={otp}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={6}
+              autoFocus
+              onChange={(event) => { setOtp(event.target.value.replace(/\D/g, '')); setError(''); }}
+              placeholder="— — — — — —"
+              aria-label="Enter the six-digit email verification code"
+            />
+            {error && <p className="otp-modal-error" role="alert">{error}</p>}
+            <button
+              type="button"
+              className="otp-modal-verify"
+              onClick={verifyOtp}
+              disabled={busy || otp.length !== 6 || !(Date.parse(challenge.expires_at) > now)}
+            >
+              {otpAction === 'verify' ? 'Verifying…'
+                : otpAction === 'submit' ? 'Sending enquiry…' : 'Verify email'}
+            </button>
+            <div className="otp-modal-resend">
+              <span>Didn't receive the email?</span>
+              <button
+                type="button"
+                onClick={sendOtp}
+                disabled={busy || resendSeconds > 0}
+              >
+                {otpAction === 'send' ? 'Sending…' : resendSeconds > 0
+                  ? `Resend in ${resendSeconds}s` : 'Resend code'}
+              </button>
+            </div>
+            <p className="otp-modal-spam-note">Please check your spam or junk folder too.</p>
+          </section>
+        </div>,
+        document.body
+      )}
     </>
   );
 }

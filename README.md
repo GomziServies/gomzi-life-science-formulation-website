@@ -59,4 +59,15 @@ src/
   Inquiries use the GLS subject and Gomzi Lifesciences source supported by the
   admin page at `/nutrition/contact-inquiry/contact`. Refresh that page after
   submitting; its API list cache can take up to 60 seconds to refresh.
+- Contact inquiries require email OTP verification: click **Send Enquiry** to email a
+  six-digit code and open the verification popup. Enter the code and click **Verify email**;
+  when the code is valid, the enquiry is submitted automatically. Use **Resend code** in
+  the popup if needed.
+  Codes and verification expire after 15 minutes; resend is available after 60 seconds.
+  Changing the email requires verification again. The backend uses the existing
+  `/public/v1/inquiry-otp/send` and `/verify` routes with purpose
+  `gls-formulation-contact`, and checks an email-bound verification token before
+  saving the inquiry. After saving, the API sends the GLS inquiry acknowledgment to
+  the submitted email. Deploy the matching `GCS/fg-api` changes together with this
+  website; that API must have its existing GLS SMTP account configured.
 - Update the footer copyright year (`&copy; 2024`) in `src/components/Footer.jsx`.
