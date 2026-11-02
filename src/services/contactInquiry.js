@@ -34,9 +34,6 @@ async function otpRequest(action, body) {
   if (!response.ok || result?.status !== 200) {
     throw new Error(result?.message || 'Email verification is unavailable. Please try again.');
   }
-  if (!result?.data?.verification_id || !(Date.parse(result.data.expires_at) > Date.now())) {
-    throw new Error('Email verification could not be confirmed. Please request a new code.');
-  }
   return result.data;
 }
 
@@ -44,6 +41,9 @@ export async function sendContactEmailOtp(email) {
   email = normalizeEmail(email);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Please enter a valid email address.');
   const result = await otpRequest('send', { email });
+  if (!result?.verification_id || !(Date.parse(result.expires_at) > Date.now())) {
+    throw new Error('Email verification could not be confirmed. Please request a new code.');
+  }
   return { ...result, email };
 }
 
@@ -54,10 +54,17 @@ export async function verifyContactEmailOtp(challenge, otp) {
   const result = await otpRequest('verify', {
     email: challenge.email, verification_id: challenge.verification_id, otp: otp.trim(),
   });
-  if (!/^[a-f0-9]{64}$/.test(result.verification_token || '')) {
+  const expires_at = result?.expires_at ?? challenge.expires_at;
+  if (!/^[a-f0-9]{64}$/.test(result?.verification_token || '') ||
+      !(Date.parse(expires_at) > Date.now())) {
     throw new Error('Email verification could not be confirmed. Please request a new code.');
   }
-  return { ...result, email: challenge.email };
+  return {
+    ...result,
+    verification_id: challenge.verification_id,
+    expires_at,
+    email: challenge.email,
+  };
 }
 
 export function createContactInquiry(form, pageUrl) {

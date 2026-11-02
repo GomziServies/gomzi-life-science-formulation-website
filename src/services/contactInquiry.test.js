@@ -128,7 +128,9 @@ test('verifies the email code using the challenge and returns server proof', asy
       email: verification.email, verification_id: verification.verification_id,
       otp: '123456', purpose: 'gls-formulation-contact',
     });
-    return new Response(JSON.stringify({ status: 200, data: verification }));
+    return new Response(JSON.stringify({ status: 200, data: {
+      verification_token: verification.verification_token,
+    } }));
   });
   assert.deepEqual(await verifyContactEmailOtp(verification, '123456'), verification);
   await assert.rejects(verifyContactEmailOtp(verification, '123'), /six-digit/);
