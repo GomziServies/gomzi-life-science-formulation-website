@@ -50,6 +50,13 @@ src/
 ## Notes
 
 - Per-page titles & descriptions are set client-side via `usePageMeta`.
-- The enquiry form validates like the original and is ready to wire to
-  Formspree/your backend — see the comment in `src/pages/Contact.jsx`.
+- The contact form saves inquiries through FG API's `POST /public/v1/contact-inquiry`.
+  Local development uses `http://localhost:80`, matching `GCS/gomzi-admin`;
+  production uses `https://api.fggroup.in`. To override the API origin, copy
+  `.env.example` to `.env.local`, set `VITE_API_BASE_URL`, and restart Vite.
+  Name, company, email, phone, interest, and message are required. Company and
+  interest appear in the inquiry message and are also saved in `details`.
+  Inquiries use the GLS subject and Gomzi Lifesciences source supported by the
+  admin page at `/nutrition/contact-inquiry/contact`. Refresh that page after
+  submitting; its API list cache can take up to 60 seconds to refresh.
 - Update the footer copyright year (`&copy; 2024`) in `src/components/Footer.jsx`.

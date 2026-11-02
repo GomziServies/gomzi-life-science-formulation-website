@@ -2,17 +2,9 @@ import { useState } from 'react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { scrollToElement } from '../components/ScrollToTop';
 import CustomSelect from '../components/CustomSelect';
+import { INTEREST_OPTIONS, submitContactInquiry } from '../services/contactInquiry';
 
 const EMAIL = 'info@gomzilifesciences.in';
-
-const INTEREST_OPTIONS = [
-  { value: 'ingredient-sourcing', label: 'Ingredient Sourcing' },
-  { value: 'rd-formulation', label: 'R&D & Formulation Support' },
-  { value: 'both', label: 'Both Ingredients & R&D' },
-  { value: 'clinical-ingredients', label: 'Clinical Ingredients' },
-  { value: 'general-inquiry', label: 'General Enquiry' },
-  { value: 'other', label: 'Other' },
-];
 
 const FAQS = [
   {
@@ -54,8 +46,6 @@ const EMPTY_FORM = {
   message: '',
 };
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export default function Contact() {
   usePageMeta(
     'Contact Gomzi Lifesciences | Enquire About Ingredients & R&D',
@@ -64,37 +54,31 @@ export default function Contact() {
 
   const [form, setForm] = useState(EMPTY_FORM);
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    setSent(false);
+    setError('');
   };
 
-  // Same validation + behavior as the original script.js form handler:
-  // validate → success button state → alert + reset after 1.5 s.
-  // To actually send emails, point this at Formspree/your backend.
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    if (!form.name || !form.company || !form.email || !form.requirement || !form.message) {
-      window.alert('Please fill in all required fields');
-      return;
-    }
-    if (!EMAIL_REGEX.test(form.email)) {
-      window.alert('Please enter a valid email address');
-      return;
-    }
-
-    console.log('Form submitted:', form);
-    setSent(true);
-
-    setTimeout(() => {
-      window.alert(
-        `Thank you for your enquiry! We will get back to you within one business day.\n\nSending to: ${EMAIL}`
-      );
+    if (submitting || sent) return;
+    setSubmitting(true);
+    setSent(false);
+    setError('');
+    try {
+      await submitContactInquiry(form, window.location.href);
+      setSent(true);
       setForm(EMPTY_FORM);
-      setSent(false);
-    }, 1500);
+    } catch (err) {
+      setError(err.message || 'Your enquiry could not be sent. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -124,91 +108,102 @@ export default function Contact() {
               <h2 style={{ color: '#99c229', marginBottom: '1.5rem' }}>
                 Send an Enquiry
               </h2>
-              <form className="contact-form" onSubmit={onSubmit}>
-                <div className="form-group">
-                  <label htmlFor="name">Full Name *</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={form.name}
-                    onChange={onChange}
-                  />
-                </div>
+              <form className="contact-form" onSubmit={onSubmit} aria-busy={submitting}>
+                <fieldset disabled={submitting} style={{ border: 0, padding: 0, margin: 0, minWidth: 0 }}>
+                  <div className="form-group">
+                    <label htmlFor="name">Full Name *</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={form.name}
+                      onChange={onChange}
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="company">Company Name *</label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    required
-                    value={form.company}
-                    onChange={onChange}
-                  />
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="company">Company Name *</label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      required
+                      value={form.company}
+                      onChange={onChange}
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email Address *</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={form.email}
-                    onChange={onChange}
-                  />
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email Address *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={form.email}
+                      onChange={onChange}
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={form.phone}
-                    onChange={onChange}
-                  />
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone Number *</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      required
+                      value={form.phone}
+                      onChange={onChange}
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="requirement">
-                    What are you interested in? *
-                  </label>
-                  <CustomSelect
-                    id="requirement"
-                    name="requirement"
-                    required
-                    value={form.requirement}
-                    options={INTEREST_OPTIONS}
-                    placeholder="Select an option"
-                    onChange={onChange}
-                  />
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="requirement">
+                      What are you interested in? *
+                    </label>
+                    <CustomSelect
+                      id="requirement"
+                      name="requirement"
+                      required
+                      value={form.requirement}
+                      options={INTEREST_OPTIONS}
+                      placeholder="Select an option"
+                      onChange={onChange}
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="message">Tell us about your product idea *</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    placeholder="What are you looking to develop? Any specific ingredients or formats in mind?"
-                    value={form.message}
-                    onChange={onChange}
-                  />
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="message">Tell us about your product idea *</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      placeholder="What are you looking to develop? Any specific ingredients or formats in mind?"
+                      value={form.message}
+                      onChange={onChange}
+                    />
+                  </div>
 
+                </fieldset>
                 <button
                   type="submit"
+                  disabled={submitting || sent}
                   className="btn btn-red btn-lg"
                   style={{
                     width: '100%',
+                    ...(submitting ? { opacity: 0.7, cursor: 'wait' } : {}),
                     ...(sent ? { backgroundColor: '#99c229' } : {}),
                   }}
                 >
-                  {sent ? '✓ Enquiry Sent!' : 'Send Enquiry'}
+                  {submitting ? 'Sending Enquiry…' : sent ? '✓ Enquiry Sent!' : 'Send Enquiry'}
                 </button>
+                {error && <p role="alert" style={{ color: '#b42318', marginTop: '1rem' }}>{error}</p>}
+                {sent && (
+                  <p role="status" style={{ color: '#507016', marginTop: '1rem' }}>
+                    Thank you for your enquiry! We will get back to you within one business day.
+                  </p>
+                )}
                 <p
                   style={{
                     fontSize: '0.85rem',
