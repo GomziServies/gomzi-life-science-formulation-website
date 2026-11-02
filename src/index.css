@@ -2459,7 +2459,8 @@ a.rd-format-card {
 @media (max-width: 640px) {
   .floating-action-container {
     right: 16px;
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   }
 
   .floating-enquire-btn {
@@ -2470,5 +2471,22 @@ a.rd-format-card {
   .floating-enquire-btn svg {
     width: 26px;
     height: 26px;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .floating-action-container {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .floating-enquire-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .floating-enquire-btn svg {
+    width: 22px;
+    height: 22px;
   }
 }
