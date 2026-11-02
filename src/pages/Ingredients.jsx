@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
+import IngredientIcon from '../components/IngredientIcon';
 
 const FILTER_TABS = [
   { category: 'all', label: 'All' },
@@ -296,6 +297,9 @@ export default function Ingredients() {
                     data-category={section.category}
                     key={`${section.category}-${item.name}`}
                   >
+                    <div className="ingredient-icon-wrapper" aria-hidden="true">
+                      <IngredientIcon category={section.category} name={item.name} />
+                    </div>
                     <h4>{item.name}</h4>
                     <p>{item.type}</p>
                   </div>

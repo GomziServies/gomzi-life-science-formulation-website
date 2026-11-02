@@ -165,7 +165,7 @@ export default function Home() {
             </p>
           </div>
           <div className="value-grid">
-            <div className="value-card">
+            <Link to="/ingredients" className="value-card">
               <h3>Amino Acids</h3>
               <p>
                 23 essential and non-essential amino acids for sports
@@ -174,8 +174,8 @@ export default function Home() {
               <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
                 L-Glutamine, L-Arginine, L-Citrulline, Taurine, Beta Alanine + 18 more
               </p>
-            </div>
-            <div className="value-card">
+            </Link>
+            <Link to="/ingredients" className="value-card">
               <h3>Vitamins & Minerals</h3>
               <p>
                 Essential vitamins and mineral salts for health, immunity, and
@@ -184,8 +184,8 @@ export default function Home() {
               <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
                 Vitamin D3, Magnesium, Zinc, Iron, Selenium + more
               </p>
-            </div>
-            <div className="value-card">
+            </Link>
+            <Link to="/ingredients" className="value-card">
               <h3>Sports & Performance</h3>
               <p>
                 Specialized ingredients for athletic performance and sports
@@ -194,7 +194,7 @@ export default function Home() {
               <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
                 Creatine Monohydrate, HMB Calcium, Citrulline Malate
               </p>
-            </div>
+            </Link>
           </div>
           <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
             <Link to="/ingredients" className="btn btn-red btn-lg">

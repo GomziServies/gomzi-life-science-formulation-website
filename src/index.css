@@ -1000,6 +1000,13 @@ a:hover {
   box-shadow: 0 16px 36px -8px rgba(153, 194, 41, 0.22), 0 6px 12px -2px rgba(15, 23, 42, 0.04);
 }
 
+a.value-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+}
+
 .value-number {
   display: inline-flex;
   align-items: center;
@@ -1032,6 +1039,7 @@ a:hover {
   font-size: 0.985rem;
   line-height: 1.68;
 }
+
 
 /* ========== CLINICAL INGREDIENTS SECTION ========== */
 .clinical-showcase {
@@ -1190,6 +1198,38 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.ingredient-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: rgba(153, 194, 41, 0.12);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.25s var(--ease-spring);
+  flex-shrink: 0;
+}
+
+.ingredient-icon-wrapper svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  transition: transform 0.25s var(--ease-spring);
+}
+
+.ingredient-item:hover .ingredient-icon-wrapper {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 6px 16px rgba(153, 194, 41, 0.35);
+}
+
+.ingredient-item:hover .ingredient-icon-wrapper svg {
+  transform: scale(1.04);
 }
 
 .ingredient-item:hover {
@@ -1892,6 +1932,27 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+  .ingredient-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+  .ingredient-item {
+    padding: 1.25rem 0.75rem;
+  }
+  .ingredient-icon-wrapper {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+  }
+  .ingredient-icon-wrapper svg {
+    width: 22px;
+    height: 22px;
+  }
+  .ingredient-item h4 {
+    font-size: 0.95rem;
+  }
+
   .otp-modal-backdrop {
     align-items: end;
     padding: 0.75rem;
@@ -2330,5 +2391,67 @@ a:hover {
 @media (max-width: 480px) {
   .showcase-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ========== FIXED FLOATING ENQUIRE BUTTON ========== */
+.floating-action-container {
+  position: fixed;
+  right: 24px;
+  bottom: 28px;
+  z-index: 999;
+}
+
+.floating-enquire-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: #20b957;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(32, 185, 87, 0.42), 0 2px 6px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease, background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.floating-enquire-btn:hover {
+  background-color: #1aa64e;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(32, 185, 87, 0.55), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.floating-enquire-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.floating-enquire-btn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.floating-enquire-btn svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+@media (max-width: 640px) {
+  .floating-action-container {
+    right: 16px;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .floating-enquire-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .floating-enquire-btn svg {
+    width: 26px;
+    height: 26px;
   }
 }
