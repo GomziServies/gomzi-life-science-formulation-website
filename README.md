@@ -19,9 +19,9 @@ npm run preview  # preview the production build locally
 ```
 
 Deploy the `dist/` folder to any static host. `public/_redirects` is included for
-Netlify; for Vercel add `"rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]`
-or use a `vercel.json`. Alternatively, swap `BrowserRouter` for `HashRouter` in
-`src/main.jsx` to work on hosts without SPA rewrites.
+Netlify, and `vercel.json` configures Vercel to serve the SPA entry point for
+routes such as `/contact`. Alternatively, swap `BrowserRouter` for `HashRouter`
+in `src/main.jsx` to work on hosts without SPA rewrites.
 
 ## Project structure
 
