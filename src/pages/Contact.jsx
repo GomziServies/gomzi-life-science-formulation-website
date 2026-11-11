@@ -8,6 +8,8 @@ import {
   submitContactInquiry, verifyContactEmailOtp,
 } from '../services/contactInquiry';
 
+import { whatsappLink, WHATSAPP_DISPLAY } from '../config/contact';
+
 const EMAIL = 'info@gomzilifesciences.in';
 
 const FAQS = [
@@ -377,6 +379,44 @@ export default function Contact() {
                   }}
                 >
                   For any enquiries, quotes, or collaboration requests
+                </p>
+              </div>
+
+              <div
+                style={{
+                  background: '#f5f6fb',
+                  padding: '1.5rem',
+                  borderRadius: '8px',
+                  borderLeft: '4px solid #99c229',
+                  marginBottom: '1.5rem',
+                }}
+              >
+                <h3 style={{ color: '#99c229', fontSize: '1rem', marginBottom: '0.5rem' }}>
+                  WhatsApp
+                </h3>
+                <p style={{ color: '#5b6378', margin: 0 }}>
+                  <a
+                    href={whatsappLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: '#111111',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    {WHATSAPP_DISPLAY}
+                  </a>
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.9rem',
+                    color: '#5b6378',
+                    margin: '0.5rem 0 0',
+                    fontStyle: 'italic',
+                  }}
+                >
+                  Chat with us directly for quick enquiries
                 </p>
               </div>
 

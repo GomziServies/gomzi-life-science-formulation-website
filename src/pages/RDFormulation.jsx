@@ -45,31 +45,43 @@ const PROCESS_STEPS = [
     number: '01',
     title: 'Concept & Strategy',
     text: 'Understand your product vision. Identify target market, positioning, and ingredient requirements.',
+    image: '/rd-process/01-rd-team-concept.webp',
+    alt: 'Indian R&D team collaborating in the lab to understand product requirements',
   },
   {
     number: '02',
     title: 'Formulation Design',
     text: 'Develop initial formulations. Select ingredients, ratios, and delivery formats.',
+    image: '/rd-process/02-formulation-design.webp',
+    alt: 'Indian formulation scientist recording ingredient ratios in the lab',
   },
   {
     number: '03',
     title: 'Sample Development',
     text: 'Create development samples. Small-batch production for testing and feedback.',
+    image: '/rd-process/03-sample-development.webp',
+    alt: 'Indian lab team preparing small-batch development samples',
   },
   {
     number: '04',
     title: 'Optimization',
     text: 'Refine based on feedback. Sensory optimization, stability testing, bioavailability work.',
+    image: '/rd-process/04-optimization.webp',
+    alt: 'Indian scientists running stability and quality testing on lab instruments',
   },
   {
     number: '05',
     title: 'Finalization',
     text: 'Lock down the final formula. Complete documentation and manufacturing specifications.',
+    image: '/rd-process/05-finalization.webp',
+    alt: 'Indian specialist finalising formula documentation and specifications',
   },
   {
     number: '06',
     title: 'Scale & Support',
     text: 'Connect with manufacturing partners. Support commercial scale-up and production.',
+    image: '/facility/sterile-powder-processing-facility.webp',
+    alt: 'Indian production team scaling up manufacturing on the plant floor',
   },
 ];
 
@@ -77,26 +89,38 @@ const EXPERTISE_AREAS = [
   {
     title: "Sports & Performance",
     text: 'Protein powders, pre-workout formulations, recovery supplements. Amino acid ratios, taste masking, mixability optimization.',
+    image: '/expertise/sports-performance.webp',
+    alt: 'Protein shake shaker bottle on a gym bench',
   },
   {
     title: "Women's Wellness",
     text: 'Hormonal balance, beauty, bone health formulations. Specialized ingredient combinations and bioavailability enhancement.',
+    image: '/expertise/womens-wellness.webp',
+    alt: 'Jar of wellness capsules with supplement powder',
   },
   {
     title: 'Gut & Digestive Health',
     text: 'Probiotic formulations, fiber blends, digestive enzyme combinations. Stability and shelf-life optimization.',
+    image: '/expertise/gut-digestive-health.webp',
+    alt: 'Probiotic yogurt with fresh berries for gut health',
   },
   {
     title: 'Sleep & Recovery',
     text: 'Melatonin formulations, relaxation blends, sleep-supporting supplements. Sensory optimization for bedtime use.',
+    image: '/expertise/sleep-recovery.webp',
+    alt: 'Sleep-support tablets on a calming lavender background',
   },
   {
     title: 'Functional Beverages',
     text: 'Protein drinks, wellness shots, functional juices. Taste masking, stability in liquid formats, pH optimization.',
+    image: '/expertise/functional-beverages.webp',
+    alt: 'Row of bottled functional juices and wellness drinks',
   },
   {
     title: 'Special Populations',
     text: "Kids' formulations, elderly nutrition, specific dietary needs. Palatability, texture, and compliance optimization.",
+    image: '/expertise/special-populations.webp',
+    alt: 'Gummy vitamins spilling from a supplement bottle',
   },
 ];
 
@@ -266,10 +290,23 @@ export default function RDFormulation() {
 
           <div className="process-steps rd-process-steps">
             {PROCESS_STEPS.map((step) => (
-              <div className="process-step" key={step.number}>
-                <div className="step-number">{step.number}</div>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
+              <div className="process-step rd-process-card" key={step.number}>
+                <div className="rd-process-img-wrap">
+                  <img
+                    src={step.image}
+                    alt={step.alt}
+                    className="rd-process-img"
+                    width="900"
+                    height="600"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="rd-process-num">Step {step.number}</span>
+                </div>
+                <div className="rd-process-body">
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -281,26 +318,24 @@ export default function RDFormulation() {
         <div className="container">
           <h2 className="section-center-title">Expertise Areas</h2>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2rem',
-            }}
-          >
+          <div className="rd-expertise-grid">
             {EXPERTISE_AREAS.map((area) => (
-              <div
-                key={area.title}
-                style={{
-                  background: '#f5f6fb',
-                  padding: '2rem',
-                  borderRadius: '12px',
-                }}
-              >
-                <h3 style={{ color: '#99c229', marginBottom: '1rem' }}>
-                  {area.title}
-                </h3>
-                <p style={{ color: '#5b6378' }}>{area.text}</p>
+              <div className="rd-expertise-card" key={area.title}>
+                <div className="rd-expertise-img-wrap">
+                  <img
+                    src={area.image}
+                    alt={area.alt}
+                    className="rd-expertise-img"
+                    width="900"
+                    height="600"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="rd-expertise-body">
+                  <h3>{area.title}</h3>
+                  <p>{area.text}</p>
+                </div>
               </div>
             ))}
           </div>

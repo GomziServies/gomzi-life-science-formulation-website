@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { WhatsAppIcon } from './FloatingActions';
+import { whatsappLink, WHATSAPP_DISPLAY } from '../config/contact';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
@@ -65,6 +67,17 @@ export default function Footer() {
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
                 <span>info@gomzilifesciences.in</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-contact-link"
+              >
+                <WhatsAppIcon size={16} className="footer-icon" />
+                <span>{WHATSAPP_DISPLAY}</span>
               </a>
             </li>
             <li>
