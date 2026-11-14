@@ -6,6 +6,7 @@ import FloatingActions from './components/FloatingActions';
 import Home from './pages/Home';
 import About from './pages/About';
 import Ingredients from './pages/Ingredients';
+import OurExpertise from './pages/OurExpertise';
 import RDFormulation from './pages/RDFormulation';
 import Applications from './pages/Applications';
 import Contact from './pages/Contact';
@@ -18,6 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/our-expertise" element={<OurExpertise />} />
         <Route path="/ingredients" element={<Ingredients />} />
         <Route path="/rd-formulation" element={<RDFormulation />} />
         <Route path="/applications" element={<Applications />} />

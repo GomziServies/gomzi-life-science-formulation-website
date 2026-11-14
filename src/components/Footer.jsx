@@ -5,7 +5,7 @@ import { whatsappLink, WHATSAPP_DISPLAY } from '../config/contact';
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
-  { to: '/ingredients', label: 'Ingredients' },
+  { to: '/our-expertise', label: 'Our Expertise' },
   { to: '/rd-formulation', label: 'R&D & Formulation' },
   { to: '/applications', label: 'Applications' },
   { to: '/contact', label: 'Contact' },
