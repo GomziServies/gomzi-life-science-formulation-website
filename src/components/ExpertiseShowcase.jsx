@@ -2,12 +2,6 @@ import { Link } from 'react-router-dom';
 import { PRODUCTS } from '../data/expertiseProducts';
 import { useSnapSlider } from '../hooks/useSnapSlider';
 
-const FACTS = [
-  { value: String(PRODUCTS.length), label: 'Ready products' },
-  { value: '50–100 kg', label: 'Low MOQ to start' },
-  { value: '5–10 days', label: 'Fast delivery' },
-];
-
 function Arrow({ dir }) {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -17,8 +11,8 @@ function Arrow({ dir }) {
 }
 
 /**
- * Home-page overview of the /our-expertise page: intro, key facts, a product
- * slider (every product links to its section on that page) and a CTA.
+ * Home-page overview of the /our-expertise page: intro, a product slider
+ * (every product links to its section on that page) and a CTA.
  */
 export default function ExpertiseShowcase() {
   const { trackRef, onScroll, stops, active, goTo, prev, next, atStart, atEnd } = useSnapSlider();
@@ -35,15 +29,6 @@ export default function ExpertiseShowcase() {
             tea, coffee, soup and everyday health foods.
           </p>
         </div>
-
-        <ul className="hx-facts">
-          {FACTS.map((f) => (
-            <li key={f.label}>
-              <strong>{f.value}</strong>
-              <span>{f.label}</span>
-            </li>
-          ))}
-        </ul>
 
         <div className="hx-slider">
           <div className="hx-track" ref={trackRef} onScroll={onScroll}>
