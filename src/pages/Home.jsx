@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
+import ExpertiseShowcase from '../components/ExpertiseShowcase';
 
 
 const SHOWCASE_PRODUCTS = [
@@ -154,55 +155,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==================== EXPLORE INGREDIENTS ==================== */}
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Our Ingredient Portfolio</h2>
-            <p className="section-subtitle">
-              50+ nutraceutical-grade raw materials across amino acids,
-              vitamins, minerals, and specialty ingredients.
-            </p>
-          </div>
-          <div className="value-grid">
-            <Link to="/ingredients" className="value-card">
-              <h3>Amino Acids</h3>
-              <p>
-                23 essential and non-essential amino acids for sports
-                nutrition, wellness, and performance.
-              </p>
-              <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
-                L-Glutamine, L-Arginine, L-Citrulline, Taurine, Beta Alanine + 18 more
-              </p>
-            </Link>
-            <Link to="/ingredients" className="value-card">
-              <h3>Vitamins & Minerals</h3>
-              <p>
-                Essential vitamins and mineral salts for health, immunity, and
-                functional nutrition.
-              </p>
-              <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
-                Vitamin D3, Magnesium, Zinc, Iron, Selenium + more
-              </p>
-            </Link>
-            <Link to="/ingredients" className="value-card">
-              <h3>Sports & Performance</h3>
-              <p>
-                Specialized ingredients for athletic performance and sports
-                nutrition products.
-              </p>
-              <p style={{ fontSize: '0.85rem', color: '#5b6378', marginTop: '1rem' }}>
-                Creatine Monohydrate, HMB Calcium, Citrulline Malate
-              </p>
-            </Link>
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
-            <Link to="/ingredients" className="btn btn-red btn-lg">
-              View All Ingredients →
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ==================== OUR EXPERTISE (overview of /our-expertise) ==================== */}
+      <ExpertiseShowcase />
 
       {/* ==================== R&D & FORMULATION ==================== */}
       <section className="section alt-bg">

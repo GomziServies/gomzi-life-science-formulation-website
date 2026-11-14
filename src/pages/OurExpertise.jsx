@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { useSnapSlider } from '../hooks/useSnapSlider';
 import { WhatsAppIcon } from '../components/FloatingActions';
 import { scrollToElement } from '../components/ScrollToTop';
 import { whatsappLink } from '../config/contact';
@@ -111,36 +111,7 @@ function ProductDetail({ product, index }) {
  * turns it into a horizontal scroll-snap slider and these dots track it.
  */
 function ProductRange() {
-  const trackRef = useRef(null);
-  const [active, setActive] = useState(0);
-
-  const cards = () => Array.from(trackRef.current?.children ?? []);
-
-  const onScroll = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    // At the far end the last card can't snap to the start edge, so pin it.
-    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) {
-      setActive(PRODUCTS.length - 1);
-      return;
-    }
-    const start = track.scrollLeft + parseFloat(getComputedStyle(track).paddingLeft || 0);
-    let closest = 0;
-    cards().forEach((card, i) => {
-      if (Math.abs(card.offsetLeft - start) < Math.abs(cards()[closest].offsetLeft - start)) {
-        closest = i;
-      }
-    });
-    setActive(closest);
-  };
-
-  const goTo = (i) => {
-    const track = trackRef.current;
-    const card = cards()[i];
-    if (!track || !card) return;
-    const pad = parseFloat(getComputedStyle(track).paddingLeft || 0);
-    track.scrollTo({ left: card.offsetLeft - pad, behavior: 'smooth' });
-  };
+  const { trackRef, onScroll, stops, active, goTo } = useSnapSlider();
 
   return (
     <>
@@ -166,12 +137,12 @@ function ProductRange() {
         ))}
       </div>
       <div className="xp-slider-dots" role="group" aria-label="Product slides">
-        {PRODUCTS.map((product, i) => (
+        {stops.map((stop, i) => (
           <button
             type="button"
-            key={product.id}
+            key={stop}
             className={`xp-slider-dot${active === i ? ' active' : ''}`}
-            aria-label={`Show ${product.name}`}
+            aria-label={`Show slide ${i + 1} of ${stops.length}`}
             aria-current={active === i ? 'true' : undefined}
             onClick={() => goTo(i)}
           />
@@ -184,7 +155,7 @@ function ProductRange() {
 export default function OurExpertise() {
   usePageMeta(
     'Our Expertise | Private Label Manufacturing | Gomzi Life Science',
-    'Private label manufacturing of Yeast Protein, Fat Burner, Instant Protein Tea, Instant Protein Coffee and Multi Grain Atta with Protein. Low MOQ 50–100 kg, ready in 5–10 days.'
+    'Private label manufacturing of Yeast Protein, Fat Burner, Tablets & Capsules, Fiber Jelly, Instant Protein Tea, Coffee & Soup and Multi Grain Atta with Protein. Low MOQ 50–100 kg, ready in 5–10 days.'
   );
 
   return (

@@ -36,28 +36,71 @@ export const PRODUCTS = [
     id: 'fat-burner',
     name: 'Fat Burner',
     category: 'Weight Management',
-    badge: 'Jitter-Free',
+    badge: 'Advanced Formula',
     image: '/products/fat-burner.webp',
     description:
-      'A low-stimulant fat burner with L-Carnitine, prebiotic fibre and botanical extracts. Supports fat metabolism and sustained energy—without the jitters.',
+      'An advanced weight management formula with L-Carnitine, prebiotic fibre and botanical extracts. Boosts metabolism and energy—low-stimulant and jitter-free.',
     stats: [
+      { value: '30', label: 'Servings per jar' },
+      { value: '300 g', label: 'Net quantity' },
       { value: 'Low', label: 'Stimulant formula' },
-      { value: '6', label: 'Functional claims' },
-      { value: '6 g', label: 'Serving size' },
     ],
     groups: [
       {
-        label: 'Functional claims',
+        label: 'Key benefits',
+        items: ['Boosts Metabolism', 'Increases Energy', 'Supports Fat Loss', 'Controls Appetite'],
+      },
+      {
+        label: 'Also',
         items: [
           'Low-Stimulant / Jitter-Free',
           'Prebiotic Gut Support',
-          'Supports Fat Metabolism',
-          'Aids Active Weight Management',
           'Supports Healthy Blood Sugar Balance',
-          'Promotes Sustained Energy',
         ],
       },
       { label: 'Available flavour', items: ['Blueberry'] },
+    ],
+  },
+  {
+    id: 'tablets-capsules',
+    name: 'Tablets & Capsules',
+    category: 'Supplements',
+    badge: 'Overall Wellness',
+    image: '/products/tablets-capsules.webp',
+    description:
+      'A premium nutrition supplement that supports overall wellness—available in tablet and capsule formats, formulated to your brand’s requirement.',
+    stats: [
+      { value: '60', label: 'Tablets / capsules' },
+      { value: '2', label: 'Dosage formats' },
+      { value: 'Private', label: 'Label ready' },
+    ],
+    groups: [
+      {
+        label: 'Key benefits',
+        items: ['Immunity Support', 'Energy & Vitality', 'General Wellness'],
+      },
+      { label: 'Formats', items: ['Tablets', 'Capsules'] },
+    ],
+  },
+  {
+    id: 'fiber-jelly',
+    name: 'Fiber Jelly',
+    category: 'Functional Jelly',
+    badge: 'Gut Health',
+    image: '/products/fiber-jelly.webp',
+    description:
+      'Tasty, chewable fiber jellies that support digestive health and gut wellness—an easy and enjoyable way to add fibre to the everyday routine.',
+    stats: [
+      { value: '30', label: 'Jellies per jar' },
+      { value: 'Mango', label: 'Flavour' },
+      { value: 'Gut', label: 'Wellness' },
+    ],
+    groups: [
+      {
+        label: 'Key benefits',
+        items: ['Helps Improve Digestion', 'Supports Bowel Regularity', 'Rich in Dietary Fiber'],
+      },
+      { label: 'Available flavour', items: ['Mango'] },
     ],
   },
   {
@@ -91,6 +134,27 @@ export const PRODUCTS = [
     ],
     storage:
       'Store in a cool, dry place away from direct sunlight, heat and moisture. Keep the pouch or container tightly sealed after each use.',
+  },
+  {
+    id: 'instant-protein-soup',
+    name: 'Instant Protein Soup',
+    category: 'Instant Food',
+    badge: 'Ready in 1 Minute',
+    image: '/products/instant-protein-soup.webp',
+    description:
+      'High-protein, nutritious and delicious. A creamy instant soup premix that’s ready in just one minute—a quick, wholesome snack or light meal.',
+    stats: [
+      { value: '1 min', label: 'Ready in' },
+      { value: '10', label: 'Servings per pack' },
+      { value: '250 g', label: 'Zip-lock pouch' },
+    ],
+    groups: [
+      {
+        label: 'Key benefits',
+        items: ['High Protein', 'Low Fat', 'No Added Preservatives'],
+      },
+      { label: 'Available flavour', items: ['Creamy Vegetable'] },
+    ],
   },
   {
     id: 'multigrain-protein-atta',
